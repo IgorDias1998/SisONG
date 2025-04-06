@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using SisONG.Context;
+using SisONG.Data.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 

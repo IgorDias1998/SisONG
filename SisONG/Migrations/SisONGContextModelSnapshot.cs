@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SisONG.Context;
+using SisONG.Data.Context;
 
 #nullable disable
 
@@ -21,21 +21,6 @@ namespace SisONG.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
-
-            modelBuilder.Entity("EventoVoluntario", b =>
-                {
-                    b.Property<int>("HistoricoParticipacaoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VoluntariosInscritosId")
-                        .HasColumnType("int");
-
-                    b.HasKey("HistoricoParticipacaoId", "VoluntariosInscritosId");
-
-                    b.HasIndex("VoluntariosInscritosId");
-
-                    b.ToTable("EventoVoluntario");
-                });
 
             modelBuilder.Entity("SisONG.Models.Doacao", b =>
                 {
@@ -105,6 +90,21 @@ namespace SisONG.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Eventos");
+                });
+
+            modelBuilder.Entity("SisONG.Models.EventoVoluntario", b =>
+                {
+                    b.Property<int>("EventoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VoluntarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EventoId", "VoluntarioId");
+
+                    b.HasIndex("VoluntarioId");
+
+                    b.ToTable("EventoVoluntario");
                 });
 
             modelBuilder.Entity("SisONG.Models.HistoricoUso", b =>
@@ -370,22 +370,11 @@ namespace SisONG.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("HistoricoParticipacao")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.HasDiscriminator().HasValue("Voluntario");
-                });
-
-            modelBuilder.Entity("EventoVoluntario", b =>
-                {
-                    b.HasOne("SisONG.Models.Evento", null)
-                        .WithMany()
-                        .HasForeignKey("HistoricoParticipacaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SisONG.Models.Voluntario", null)
-                        .WithMany()
-                        .HasForeignKey("VoluntariosInscritosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("SisONG.Models.Doacao", b =>
@@ -397,6 +386,25 @@ namespace SisONG.Migrations
                         .IsRequired();
 
                     b.Navigation("Doador");
+                });
+
+            modelBuilder.Entity("SisONG.Models.EventoVoluntario", b =>
+                {
+                    b.HasOne("SisONG.Models.Evento", "Evento")
+                        .WithMany("EventoVoluntarios")
+                        .HasForeignKey("EventoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SisONG.Models.Voluntario", "Voluntario")
+                        .WithMany("EventoVoluntarios")
+                        .HasForeignKey("VoluntarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Evento");
+
+                    b.Navigation("Voluntario");
                 });
 
             modelBuilder.Entity("SisONG.Models.HistoricoUso", b =>
@@ -421,6 +429,11 @@ namespace SisONG.Migrations
                     b.Navigation("UsuarioDestinatario");
                 });
 
+            modelBuilder.Entity("SisONG.Models.Evento", b =>
+                {
+                    b.Navigation("EventoVoluntarios");
+                });
+
             modelBuilder.Entity("SisONG.Models.ProdutoInsumo", b =>
                 {
                     b.Navigation("HistoricoDeUso");
@@ -429,6 +442,11 @@ namespace SisONG.Migrations
             modelBuilder.Entity("SisONG.Models.Doador", b =>
                 {
                     b.Navigation("HistoricoDoacoes");
+                });
+
+            modelBuilder.Entity("SisONG.Models.Voluntario", b =>
+                {
+                    b.Navigation("EventoVoluntarios");
                 });
 #pragma warning restore 612, 618
         }

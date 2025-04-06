@@ -26,8 +26,7 @@
         [Required]
         public string Status { get; set; }
 
-        // Relação muitos-para-muitos com Voluntário
-        public ICollection<Voluntario> VoluntariosInscritos { get; set; } = new List<Voluntario>();
+        public ICollection<EventoVoluntario> EventoVoluntarios { get; set; }
     }
 
 }

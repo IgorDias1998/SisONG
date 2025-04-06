@@ -22,6 +22,9 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Data\Interface\" />
+    <Folder Include="Data\Repositories\" />
+    <Folder Include="DTOs\" />
   </ItemGroup>
 
 </Project>

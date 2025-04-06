@@ -6,6 +6,8 @@
 
         public string Disponibilidade { get; set; }
 
-        public ICollection<Evento> HistoricoParticipacao { get; set; }
+        public string HistoricoParticipacao { get; set; }
+
+        public ICollection<EventoVoluntario> EventoVoluntarios { get; set; }
     }
 }

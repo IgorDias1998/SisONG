@@ -12,6 +12,6 @@ namespace SisONG.Models
 
         public bool DoacaoAnonima { get; set; }
 
-        //public ICollection<Doacao> HistoricoDoacoes { get; set; }
+        public ICollection<Doacao> HistoricoDoacoes { get; set; }
     }
 }

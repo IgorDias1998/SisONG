@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SisONG.Models;
 
-namespace SisONG.Context
+namespace SisONG.Data.Context
 {
     public class SisONGContext : DbContext
     {
@@ -25,6 +25,19 @@ namespace SisONG.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<EventoVoluntario>()
+                .HasKey(ev => new { ev.EventoId, ev.VoluntarioId });
+
+            modelBuilder.Entity<EventoVoluntario>()
+                .HasOne(ev => ev.Evento)
+                .WithMany(e => e.EventoVoluntarios)
+                .HasForeignKey(ev => ev.EventoId);
+
+            modelBuilder.Entity<EventoVoluntario>()
+                .HasOne(ev => ev.Voluntario)
+                .WithMany(v => v.EventoVoluntarios)
+                .HasForeignKey(ev => ev.VoluntarioId);
         }
     }
 }

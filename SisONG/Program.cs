@@ -8,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Registrar seus serviços aqui
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IVoluntarioService, VoluntarioService>();
+builder.Services.AddScoped<IVoluntarioRepository, VoluntarioRepository>();
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddControllers();

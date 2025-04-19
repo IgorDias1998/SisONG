@@ -6,6 +6,8 @@ using SisONG.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Registrar seus serviços aqui
+builder.Services.AddScoped<IDoadorService, DoadorService>();
+builder.Services.AddScoped<IDoadorRepository, DoadorRepository>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IVoluntarioService, VoluntarioService>();

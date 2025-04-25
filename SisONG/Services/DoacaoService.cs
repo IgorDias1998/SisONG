@@ -1,0 +1,58 @@
+﻿using AutoMapper;
+using SisONG.DTOs;
+using SisONG.Models;
+using SisONG.Repositories;
+
+namespace SisONG.Services
+{
+    public class DoacaoService : IDoacaoService
+    {
+        private readonly IDoacaoRepository _repository;
+        private readonly IMapper _mapper;
+
+        public DoacaoService(IDoacaoRepository repository, IMapper mapper)
+        {
+            _repository = repository;
+            _mapper = mapper;
+        }
+
+        public async Task<IEnumerable<DoacaoReadDto>> GetAllAsync()
+        {
+            var doacoes = await _repository.GetAllAsync();
+            return _mapper.Map<IEnumerable<DoacaoReadDto>>(doacoes);
+        }
+
+        public async Task<DoacaoReadDto> GetByIdAsync(int id)
+        {
+            var doacao = await _repository.GetByIdAsync(id);
+            return doacao == null ? null : _mapper.Map<DoacaoReadDto>(doacao);
+        }
+
+        public async Task<DoacaoReadDto> CreateAsync(DoacaoCreateDto dto)
+        {
+            var doacao = _mapper.Map<Doacao>(dto);
+            await _repository.CreateAsync(doacao);
+            await _repository.SaveChangesAsync();
+            return _mapper.Map<DoacaoReadDto>(doacao);
+        }
+
+        public async Task<bool> UpdateAsync(int id, DoacaoUpdateDto dto)
+        {
+            var doacao = await _repository.GetByIdAsync(id);
+            if (doacao == null) return false;
+
+            _mapper.Map(dto, doacao);
+            await _repository.UpdateAsync(doacao);
+            return await _repository.SaveChangesAsync();
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var doacao = await _repository.GetByIdAsync(id);
+            if (doacao == null) return false;
+
+            await _repository.DeleteAsync(doacao);
+            return await _repository.SaveChangesAsync();
+        }
+    }
+}

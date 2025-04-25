@@ -10,6 +10,8 @@ builder.Services.AddScoped<IAdministradorService, AdministradorService>();
 builder.Services.AddScoped<IAdministradorRepository, AdministradorRepository>();
 builder.Services.AddScoped<IDoadorService, DoadorService>();
 builder.Services.AddScoped<IDoadorRepository, DoadorRepository>();
+builder.Services.AddScoped<IDoacaoService, DoacaoService>();
+builder.Services.AddScoped<IDoacaoRepository, DoacaoRepository>();
 builder.Services.AddScoped<IEventoRepository, EventoRepository>();
 builder.Services.AddScoped<IEventoService, EventoService>();
 builder.Services.AddScoped<IEventoVoluntarioService, EventoVoluntarioService>();

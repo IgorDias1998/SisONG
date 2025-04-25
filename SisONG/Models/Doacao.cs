@@ -20,7 +20,7 @@ namespace SisONG.Models
         [Column(TypeName = "decimal(10,2)")]
         public decimal? Valor { get; set; }
 
-        public string Item { get; set; }
+        public string? Item { get; set; }
 
         public int? Quantidade { get; set; }
 

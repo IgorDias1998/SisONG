@@ -16,6 +16,8 @@ builder.Services.AddScoped<IEventoRepository, EventoRepository>();
 builder.Services.AddScoped<IEventoService, EventoService>();
 builder.Services.AddScoped<IEventoVoluntarioService, EventoVoluntarioService>();
 builder.Services.AddScoped<IEventoVoluntarioRepository, EventoVoluntarioRepository>();
+builder.Services.AddScoped<IHistoricoUsoRepository, HistoricoUsoRepository>();
+builder.Services.AddScoped<HistoricoUsoService>();
 builder.Services.AddScoped<IProdutoInsumoRepository, ProdutoInsumoRepository>();
 builder.Services.AddScoped<IProdutoInsumoService, ProdutoInsumoService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();

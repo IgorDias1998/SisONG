@@ -12,7 +12,7 @@ namespace SisONG.Models
         public int ProdutoInsumoId { get; set; }
 
         [ForeignKey("ProdutoInsumoId")]
-        public ProdutoInsumo ProdutoInsumo { get; set; }
+        public ProdutoInsumo? ProdutoInsumo { get; set; }
 
         [Required]
         public int QuantidadeUtilizada { get; set; }

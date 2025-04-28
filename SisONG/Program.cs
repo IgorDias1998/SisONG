@@ -26,6 +26,8 @@ builder.Services.AddScoped<IVoluntarioService, VoluntarioService>();
 builder.Services.AddScoped<IVoluntarioRepository, VoluntarioRepository>();
 builder.Services.AddScoped<ITransacaoFinanceiraRepository, TransacaoFinanceiraRepository>();
 builder.Services.AddScoped<ITransacaoFinanceiraService, TransacaoFinanceiraService>();
+builder.Services.AddScoped<IRelatorioRepository, RelatorioRepository>();
+builder.Services.AddScoped<IRelatorioService, RelatorioService>();
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddControllers();

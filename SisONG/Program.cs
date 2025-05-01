@@ -28,6 +28,10 @@ builder.Services.AddScoped<ITransacaoFinanceiraRepository, TransacaoFinanceiraRe
 builder.Services.AddScoped<ITransacaoFinanceiraService, TransacaoFinanceiraService>();
 builder.Services.AddScoped<IRelatorioRepository, RelatorioRepository>();
 builder.Services.AddScoped<IRelatorioService, RelatorioService>();
+builder.Services.AddScoped<INotificacaoRepository, NotificacaoRepository>();
+builder.Services.AddScoped<INotificacaoService, NotificacaoService>();
+builder.Services.AddScoped<IPontoColetaRepository, PontoColetaRepository>();
+builder.Services.AddScoped<IPontoColetaService, PontoColetaService>();
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddControllers();

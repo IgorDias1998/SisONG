@@ -16,7 +16,7 @@ namespace SisONG.Data.Context
         public DbSet<Relatorio> Relatorios { get; set; }
         public DbSet<Notificacao> Notificacoes { get; set; }
         public DbSet<PontoColeta> PontosDeColeta { get; set; }
-        public DbSet<EventoVoluntario> EventoVoluntarios { get; set; }
+        public DbSet<EventoVoluntario> EventoVoluntarios { get; set; }  
         public DbSet<HistoricoUso> HistoricosDeUso { get; set; }
 
         public SisONGContext(DbContextOptions<SisONGContext> options)

@@ -6,7 +6,9 @@ namespace SisONG.Services
     {
         Task<IEnumerable<RelatorioReadDto>> GetAllAsync();
         Task<RelatorioReadDto> GetByIdAsync(int id);
-        Task<RelatorioReadDto> AddAsync(RelatorioCreateDto createDto);
+
+        Task<RelatorioReadDto> AddAsync(RelatorioRequestDto requestDto);
+
         Task<RelatorioReadDto> UpdateAsync(int id, RelatorioUpdateDto updateDto);
         Task<bool> DeleteAsync(int id);
     }

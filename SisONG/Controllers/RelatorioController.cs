@@ -15,6 +15,7 @@ namespace SisONG.Controllers
             _relatorioService = relatorioService;
         }
 
+        // GET: api/Relatorio
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -22,6 +23,7 @@ namespace SisONG.Controllers
             return Ok(relatorios);
         }
 
+        // GET: api/Relatorio/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -32,34 +34,37 @@ namespace SisONG.Controllers
             return Ok(relatorio);
         }
 
+        // POST: api/Relatorio
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] RelatorioCreateDto createDto)
+        public async Task<IActionResult> Create([FromBody] RelatorioRequestDto requestDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var relatorioCriado = await _relatorioService.AddAsync(createDto);
-            return CreatedAtAction(nameof(GetById), new { id = relatorioCriado.Id }, relatorioCriado);
+            var createdRelatorio = await _relatorioService.AddAsync(requestDto);
+            return CreatedAtAction(nameof(GetById), new { id = createdRelatorio.Id }, createdRelatorio);
         }
 
+        // PUT: api/Relatorio/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] RelatorioUpdateDto updateDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var relatorioAtualizado = await _relatorioService.UpdateAsync(id, updateDto);
-            if (relatorioAtualizado == null)
+            var updatedRelatorio = await _relatorioService.UpdateAsync(id, updateDto);
+            if (updatedRelatorio == null)
                 return NotFound();
 
-            return Ok(relatorioAtualizado);
+            return Ok(updatedRelatorio);
         }
 
+        // DELETE: api/Relatorio/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var sucesso = await _relatorioService.DeleteAsync(id);
-            if (!sucesso)
+            var deleted = await _relatorioService.DeleteAsync(id);
+            if (!deleted)
                 return NotFound();
 
             return NoContent();

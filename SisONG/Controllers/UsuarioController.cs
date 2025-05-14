@@ -37,6 +37,17 @@ namespace SisONG.Controllers
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 
+        [HttpPost("login")]
+        public async Task<ActionResult<UsuarioReadDto>> Login([FromBody] LoginDto loginDto)
+        {
+            var usuario = await _service.AutenticarAsync(loginDto);
+
+            if (usuario == null)
+                return Unauthorized("Email ou senha inválidos");
+
+            return Ok(usuario);
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, UsuarioUpdateDto dto)
         {

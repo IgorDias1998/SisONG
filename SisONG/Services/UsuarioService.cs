@@ -98,5 +98,16 @@ namespace SisONG.Services
             _repository.Delete(usuario);
             return await _repository.SaveChangesAsync();
         }
+
+        public async Task<UsuarioReadDto> AutenticarAsync(LoginDto loginDto)
+        {
+            var usuario = await _repository.GetByEmailAsync(loginDto.Email);
+
+            if (usuario == null || !BCrypt.Net.BCrypt.Verify(loginDto.Senha, usuario.SenhaHash))
+                return null;
+
+            return _mapper.Map<UsuarioReadDto>(usuario);
+        }
+
     }
 }

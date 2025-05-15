@@ -11,5 +11,6 @@ namespace SisONG.Repositories
         void Delete(Usuario usuario);
         Task<bool> SaveChangesAsync();
         Task CreateAsync(Usuario usuario);
+        Task<Usuario> GetByEmailAsync(string email);
     }
 }

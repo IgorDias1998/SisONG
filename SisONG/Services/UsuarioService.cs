@@ -99,14 +99,14 @@ namespace SisONG.Services
             return await _repository.SaveChangesAsync();
         }
 
-        public async Task<UsuarioReadDto> AutenticarAsync(LoginDto loginDto)
+        public async Task<UsuarioCompletoReadDto> AutenticarAsync(LoginDto loginDto)
         {
             var usuario = await _repository.GetByEmailAsync(loginDto.Email);
 
             if (usuario == null || !BCrypt.Net.BCrypt.Verify(loginDto.Senha, usuario.SenhaHash))
                 return null;
 
-            return _mapper.Map<UsuarioReadDto>(usuario);
+            return _mapper.Map<UsuarioCompletoReadDto>(usuario);
         }
 
     }

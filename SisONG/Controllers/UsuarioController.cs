@@ -38,14 +38,14 @@ namespace SisONG.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UsuarioReadDto>> Login([FromBody] LoginDto loginDto)
+        public async Task<ActionResult<object>> Login([FromBody] LoginDto loginDto)
         {
-            var usuario = await _service.AutenticarAsync(loginDto);
+            var usuarioDto = await _service.AutenticarAsync(loginDto);
 
-            if (usuario == null)
+            if (usuarioDto == null)
                 return Unauthorized("Email ou senha inválidos");
 
-            return Ok(usuario);
+            return Ok(usuarioDto);
         }
 
         [HttpPut("{id}")]

@@ -15,5 +15,7 @@
         public string Disponibilidade { get; set; }
 
         public string HistoricoParticipacao { get; set; }
+
+        public string Tipo { get; set; } = "Voluntario";
     }
 }

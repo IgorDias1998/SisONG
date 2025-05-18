@@ -10,6 +10,7 @@ namespace SisONG.Services
         Task<UsuarioReadDto> CreateAsync(UsuarioCreateDto dto);
         Task<bool> UpdateAsync(int id, UsuarioUpdateDto dto);
         Task<bool> DeleteAsync(int id);
-        Task<UsuarioReadDto> AutenticarAsync(LoginDto loginDto);
+        //Task<UsuarioReadDto> AutenticarAsync(LoginDto loginDto);
+        Task<UsuarioCompletoReadDto> AutenticarAsync(LoginDto loginDto);
     }
 }

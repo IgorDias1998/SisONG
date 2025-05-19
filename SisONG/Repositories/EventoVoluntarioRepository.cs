@@ -35,7 +35,8 @@ namespace SisONG.Repositories
         public async Task<IEnumerable<EventoVoluntario>> GetByEventoIdAsync(int eventoId)
         {
             return await _context.EventoVoluntarios
-                .Include(ev => ev.Voluntario)
+                .Include(ev => ev.Evento) // Necessário para trazer o Título
+                .Include(ev => ev.Voluntario) // Necessário para trazer o Nome do voluntário
                 .Where(ev => ev.EventoId == eventoId)
                 .ToListAsync();
         }

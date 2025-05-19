@@ -30,7 +30,7 @@ namespace SisONG.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{eventoId:int}/{voluntarioId:int}")]
         public async Task<IActionResult> RemoverVoluntarioEvento(int eventoId, int voluntarioId)
         {
             var resultado = await _service.RemoveAsync(eventoId, voluntarioId);

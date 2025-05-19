@@ -10,7 +10,7 @@ namespace SisONG.Profiles
         {
             CreateMap<EventoVoluntarioCreateDto, EventoVoluntario>();
             CreateMap<EventoVoluntario, EventoVoluntarioReadDto>()
-                .ForMember(dest => dest.EventoTitulo, opt => opt.MapFrom(src => src.Evento.Titulo))
+                .ForMember(dest => dest.Titulo, opt => opt.MapFrom(src => src.Evento.Titulo))
                 .ForMember(dest => dest.VoluntarioNome, opt => opt.MapFrom(src => src.Voluntario.Nome));
         }
     }

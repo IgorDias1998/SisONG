@@ -54,5 +54,11 @@ namespace SisONG.Services
             await _repository.DeleteAsync(doacao);
             return await _repository.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<DoacaoReadDto>> GetByDoadorIdAsync(int doadorId)
+        {
+            var doacoes = await _repository.GetByDoadorIdAsync(doadorId);
+            return _mapper.Map<IEnumerable<DoacaoReadDto>>(doacoes);
+        }
     }
 }

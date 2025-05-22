@@ -42,5 +42,12 @@ namespace SisONG.Repositories
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<IEnumerable<Doacao>> GetByDoadorIdAsync(int doadorId)
+        {
+            return await _context.Doacoes
+                .Where(d => d.DoadorId == doadorId)
+                .ToListAsync();
+        }
     }
 }

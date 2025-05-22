@@ -30,6 +30,13 @@ namespace SisONG.Controllers
             return Ok(doacao);
         }
 
+        [HttpGet("doador/{doadorId}")]
+        public async Task<ActionResult<IEnumerable<DoacaoReadDto>>> ListarPorDoador(int doadorId)
+        {
+            var doacoes = await _service.GetByDoadorIdAsync(doadorId);
+            return Ok(doacoes);
+        }
+
         [HttpPost]
         public async Task<ActionResult<DoacaoReadDto>> Create(DoacaoCreateDto dto)
         {

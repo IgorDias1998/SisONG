@@ -1,4 +1,5 @@
-﻿using SisONG.Models;
+﻿using SisONG.DTOs;
+using SisONG.Models;
 
 namespace SisONG.Repositories
 {
@@ -10,5 +11,6 @@ namespace SisONG.Repositories
         Task UpdateAsync(Doacao doacao);
         Task DeleteAsync(Doacao doacao);
         Task<bool> SaveChangesAsync();
+        Task<IEnumerable<Doacao>> GetByDoadorIdAsync(int id);
     }
 }

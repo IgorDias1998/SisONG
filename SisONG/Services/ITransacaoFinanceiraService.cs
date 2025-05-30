@@ -9,5 +9,6 @@ namespace SisONG.Services
         Task<TransacaoFinanceiraReadDto> AddAsync(TransacaoFinanceiraCreateDto createDto);
         Task<TransacaoFinanceiraReadDto> UpdateAsync(int id, TransacaoFinanceiraUpdateDto updateDto);
         Task<bool> DeleteAsync(int id);
+        Task<decimal> CalcularSaldoAsync();
     }
 }

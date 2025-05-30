@@ -40,5 +40,27 @@ namespace SisONG.Repositories
             _context.TransacoesFinanceiras.Remove(transacao);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<decimal> CalcularSaldoAsync()
+        {
+            // Entradas via doações financeiras
+            var doacoesFinanceiras = await _context.Doacoes
+                .Where(d => d.Tipo == "Financeira")
+                .SumAsync(d => d.Valor);
+
+            // Entradas via transações (não despesas)
+            var outrasEntradas = await _context.TransacoesFinanceiras
+                .Where(t => t.Destino != "Despesa")
+                .SumAsync(t => t.Valor);
+
+            // Saídas via transações (despesas)
+            var despesas = await _context.TransacoesFinanceiras
+                .Where(t => t.Destino == "Despesa")
+                .SumAsync(t => t.Valor);
+
+            var saldo = (doacoesFinanceiras + outrasEntradas) - despesas;
+
+            return (decimal)saldo;
+        }
     }
 }

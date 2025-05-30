@@ -56,5 +56,11 @@ namespace SisONG.Services
             await _repository.DeleteAsync(transacao);
             return true;
         }
+
+        public async Task<decimal> CalcularSaldoAsync()
+        {
+            var saldo = await _repository.CalcularSaldoAsync();
+            return saldo;
+        }
     }
 }

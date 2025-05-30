@@ -44,6 +44,8 @@ builder.Services.AddDbContext<SisONGContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddTransient<RelatorioPdfService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

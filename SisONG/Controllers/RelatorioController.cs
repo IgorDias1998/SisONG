@@ -59,7 +59,6 @@ namespace SisONG.Controllers
             return Ok(updatedRelatorio);
         }
 
-        // DELETE: api/Relatorio/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -69,5 +68,17 @@ namespace SisONG.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("{id}/pdf")]
+        public async Task<IActionResult> GerarPdf(int id, [FromServices] RelatorioPdfService pdfGenerator)
+        {
+            var relatorio = await _relatorioService.GetByIdAsync(id);
+            if (relatorio == null)
+                return NotFound();
+
+            var pdfBytes = pdfGenerator.GerarPdf(relatorio);
+            return File(pdfBytes, "application/pdf", $"relatorio_{id}.pdf");
+        }
+
     }
 }

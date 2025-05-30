@@ -61,5 +61,13 @@ namespace SisONG.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("transacoes/saldo")]
+        public async Task<ActionResult<decimal>> ObterSaldo()
+        {
+            var saldo = await _service.CalcularSaldoAsync();
+            return Ok(saldo);
+        }
+
     }
 }

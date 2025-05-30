@@ -9,5 +9,6 @@ namespace SisONG.Repositories
         Task AddAsync(TransacaoFinanceira transacao);
         Task UpdateAsync(TransacaoFinanceira transacao);
         Task DeleteAsync(TransacaoFinanceira transacao);
+        Task<decimal> CalcularSaldoAsync();
     }
 }

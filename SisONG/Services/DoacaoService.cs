@@ -8,11 +8,13 @@ namespace SisONG.Services
     public class DoacaoService : IDoacaoService
     {
         private readonly IDoacaoRepository _repository;
+        private readonly ITransacaoFinanceiraRepository _transacaoRepository;
         private readonly IMapper _mapper;
 
-        public DoacaoService(IDoacaoRepository repository, IMapper mapper)
+        public DoacaoService(IDoacaoRepository repository, ITransacaoFinanceiraRepository transacaoRepository, IMapper mapper)
         {
             _repository = repository;
+            _transacaoRepository = transacaoRepository;
             _mapper = mapper;
         }
 
@@ -32,6 +34,19 @@ namespace SisONG.Services
         {
             var doacao = _mapper.Map<Doacao>(dto);
             await _repository.CreateAsync(doacao);
+            if (dto.Tipo == "Financeira" && dto.Valor.HasValue)
+            {
+                var transacao = new TransacaoFinanceira
+                {
+                    Data = DateTime.UtcNow,
+                    Origem = "Doação",
+                    Destino = $"Doação financeira de Doador {dto.DoadorId}",
+                    Valor = dto.Valor.Value,
+                    MetodoPagamento = "Pix"
+                };
+
+                await _transacaoRepository.CreateAsync(transacao);
+            }
             await _repository.SaveChangesAsync();
             return _mapper.Map<DoacaoReadDto>(doacao);
         }

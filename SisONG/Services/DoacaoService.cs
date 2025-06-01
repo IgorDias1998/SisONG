@@ -75,5 +75,12 @@ namespace SisONG.Services
             var doacoes = await _repository.GetByDoadorIdAsync(doadorId);
             return _mapper.Map<IEnumerable<DoacaoReadDto>>(doacoes);
         }
+
+        public async Task<int> ObterTotalDoacoesAsync()
+        {
+            var totalDoacoes = await _repository.ObterTotalDoacoesAsync();
+            return totalDoacoes;
+
+        }
     }
 }

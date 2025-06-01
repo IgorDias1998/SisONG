@@ -49,5 +49,11 @@ namespace SisONG.Repositories
                 .Where(d => d.DoadorId == doadorId)
                 .ToListAsync();
         }
+
+        public async Task<int> ObterTotalDoacoesAsync()
+        {
+            int totalDoacoes = _context.Doacoes.Count();
+            return totalDoacoes;
+        }
     }
 }

@@ -12,5 +12,6 @@ namespace SisONG.Repositories
         Task DeleteAsync(Doacao doacao);
         Task<bool> SaveChangesAsync();
         Task<IEnumerable<Doacao>> GetByDoadorIdAsync(int id);
+        Task<int> ObterTotalDoacoesAsync();
     }
 }

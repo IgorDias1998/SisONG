@@ -59,5 +59,12 @@ namespace SisONG.Controllers
             if (!sucesso) return NotFound();
             return NoContent();
         }
+
+        [HttpGet("total")]
+        public async Task<ActionResult<decimal>> ObterTotalDoacoes()
+        {
+            var total = await _service.ObterTotalDoacoesAsync();
+            return Ok(total);
+        }
     }
 }

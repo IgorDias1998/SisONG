@@ -43,12 +43,10 @@ namespace SisONG.Repositories
 
         public async Task<decimal> CalcularSaldoAsync()
         {
-            // Somar todas as entradas (doações financeiras e lançamentos manuais que não são despesas)
             var entradas = await _context.TransacoesFinanceiras
                 .Where(t => t.Destino != "Despesa")
                 .SumAsync(t => t.Valor);
 
-            // Somar todas as saídas (despesas)
             var saidas = await _context.TransacoesFinanceiras
                 .Where(t => t.Destino == "Despesa")
                 .SumAsync(t => t.Valor);

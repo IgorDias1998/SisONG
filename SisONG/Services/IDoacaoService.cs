@@ -10,5 +10,6 @@ namespace SisONG.Services
         Task<bool> UpdateAsync(int id, DoacaoUpdateDto dto);
         Task<bool> DeleteAsync(int id);
         Task<IEnumerable<DoacaoReadDto>> GetByDoadorIdAsync(int id);
+        Task<int> ObterTotalDoacoesAsync();
     }
 }

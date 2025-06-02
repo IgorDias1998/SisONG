@@ -28,6 +28,12 @@ namespace SisONG.Services
             return notificacao == null ? null : _mapper.Map<NotificacaoReadDto>(notificacao);
         }
 
+        public Task<List<NotificacaoReadDto>> GetByUserIdAsync(int usuarioId)
+        {
+            var usuario = _repository.GetByUserIdAsync(usuarioId);
+            return usuario;
+        }
+
         public async Task<NotificacaoReadDto> CreateAsync(NotificacaoCreateDto dto)
         {
             var notificacao = _mapper.Map<Notificacao>(dto);

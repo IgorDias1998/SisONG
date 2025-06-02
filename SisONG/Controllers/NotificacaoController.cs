@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SisONG.DTOs;
+using SisONG.Models;
+using SisONG.Repositories;
 using SisONG.Services;
 
 namespace SisONG.Controllers
@@ -9,10 +11,12 @@ namespace SisONG.Controllers
     public class NotificacaoController : ControllerBase
     {
         private readonly INotificacaoService _service;
+        private readonly INotificacaoRepository _repository;
 
-        public NotificacaoController(INotificacaoService service)
+        public NotificacaoController(INotificacaoService service, INotificacaoRepository repository)
         {
             _service = service;
+            _repository = repository;
         }
 
         [HttpGet]
@@ -30,12 +34,72 @@ namespace SisONG.Controllers
             return Ok(notificacao);
         }
 
+        [HttpGet("usuario/{usuarioId}")]
+        public async Task<IActionResult> GetByUsuarioId(int usuarioId)
+        {
+            var notificacoes = await _service.GetByUserIdAsync(usuarioId);
+            return Ok(notificacoes);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] NotificacaoCreateDto dto)
         {
-            var created = await _service.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            // Buscar todos os usuários com o tipo informado
+            var usuarios = await _service.GetAllAsync();
+            var destinatarios = usuarios
+                .Where(u => u.Tipo.Equals(dto.Tipo, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (!destinatarios.Any())
+                return BadRequest("Nenhum usuário encontrado com esse tipo.");
+
+            foreach (var usuario in destinatarios)
+            {
+                await _service.CreateAsync(new NotificacaoCreateDto
+                {
+                    Tipo = dto.Tipo,
+                    Mensagem = dto.Mensagem,
+                    DataEnvio = dto.DataEnvio,
+                    UsuarioId = usuario.Id
+                });
+            }
+            return Ok();
         }
+
+        [HttpPost("enviar")]
+        public async Task<IActionResult> EnviarParaGrupo([FromBody] NotificacaoGrupoDto dto)
+        {
+            Console.WriteLine($"Recebido: {dto.PerfilDestino} | {dto.Tipo} | {dto.Mensagem}");
+
+            if (string.IsNullOrWhiteSpace(dto.PerfilDestino))
+                return BadRequest("Perfil de destino obrigatório.");
+
+            var usuarios = await _repository.ObterUsuariosPorPerfil(dto.PerfilDestino);
+
+            foreach (var usuario in usuarios)
+            {
+                Console.WriteLine($"Enviando para usuário: {usuario.Id}");
+
+                var notificacao = new Notificacao
+                {
+                    UsuarioId = usuario.Id,
+                    Tipo = dto.Tipo,
+                    Mensagem = dto.Mensagem,
+                    DataEnvio = dto.DataEnvio
+                };
+
+                await _service.CreateAsync(new NotificacaoCreateDto
+                {
+                    Tipo = dto.Tipo,
+                    Mensagem = dto.Mensagem,
+                    DataEnvio = dto.DataEnvio,
+                    UsuarioId = usuario.Id
+                });
+            }
+
+            return Ok("Notificações enviadas com sucesso.");
+        }
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] NotificacaoUpdateDto dto)

@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SisONG.Data.Context;
 using SisONG.Models;
-using System;
 
 namespace SisONG.Repositories
 {

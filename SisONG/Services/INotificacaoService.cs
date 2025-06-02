@@ -9,5 +9,6 @@ namespace SisONG.Services
         Task<NotificacaoReadDto> CreateAsync(NotificacaoCreateDto dto);
         Task<bool> UpdateAsync(int id, NotificacaoUpdateDto dto);
         Task<bool> DeleteAsync(int id);
+        Task<List<NotificacaoReadDto>> GetByUserIdAsync(int usuarioId);
     }
 }

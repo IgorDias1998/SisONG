@@ -58,7 +58,7 @@ Profiles - Mapeamento automático entre Models e DTOs usando AutoMapper.
 
 ### 🧾 Referências
 
-<a href="https://learn.microsoft.com/pt-br/aspnet/core/?view=aspnetcore-9.0">Documentação oficial ASP.NET Core</a>
-<a href="https://learn.microsoft.com/pt-br/ef/core/">Entity Framework Core</a>
-<a href="https://automapper.org/">AutoMapper Documentation</a>
+<a href="https://learn.microsoft.com/pt-br/aspnet/core/?view=aspnetcore-9.0">Documentação oficial ASP.NET Core</a></br>
+<a href="https://learn.microsoft.com/pt-br/ef/core/">Entity Framework Core</a></br>
+<a href="https://automapper.org/">AutoMapper Documentation</a></br>
 <a href="https://github.com/domaindrivendev/Swashbuckle.AspNetCore">Swashbuckle.AspNetCore - Swagger UI</a>

@@ -108,11 +108,13 @@ namespace SisONG.Services
         {
             var usuario = await _repository.GetByEmailAsync(loginDto.Email);
 
-            if (usuario == null || !BCrypt.Net.BCrypt.Verify(loginDto.Senha, usuario.SenhaHash))
-                return null;
+            if (usuario == null)
+                throw new InvalidOperationException("E-mail não cadastrado.");
+
+            if (!BCrypt.Net.BCrypt.Verify(loginDto.Senha, usuario.SenhaHash))
+                throw new InvalidOperationException("Senha incorreta.");
 
             return _mapper.Map<UsuarioCompletoReadDto>(usuario);
         }
-
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SisONG.Data.Context;
 
@@ -11,9 +12,11 @@ using SisONG.Data.Context;
 namespace SisONG.Migrations
 {
     [DbContext(typeof(SisONGContext))]
-    partial class SisONGContextModelSnapshot : ModelSnapshot
+    [Migration("20250623151407_CorreçãoLogin")]
+    partial class CorreçãoLogin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

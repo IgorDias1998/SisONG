@@ -31,10 +31,9 @@ namespace SisONG.Services
         public async Task<UsuarioReadDto> CreateAsync(UsuarioCreateDto dto)
         {
             var usuarioExistente = await _repository.GetByEmailAsync(dto.Email);
+
             if (usuarioExistente != null)
-            {
-                throw new InvalidOperationException("Já existe um usuário cadastrado com este e-mail...");
-            }
+                throw new InvalidOperationException("Já existe um usuário cadastrado com este e-mail.");
 
             Usuario usuario;
 

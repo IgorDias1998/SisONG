@@ -40,6 +40,9 @@ namespace SisONG.Data.Context
                 .HasOne(ev => ev.Voluntario)
                 .WithMany(v => v.EventoVoluntarios)
                 .HasForeignKey(ev => ev.VoluntarioId);
+            modelBuilder.Entity<Usuario>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
         }
     }
 }

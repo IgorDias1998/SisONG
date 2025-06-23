@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Data.Entity.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
 using SisONG.DTOs;
 using SisONG.Services;
 

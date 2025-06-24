@@ -80,5 +80,20 @@ namespace SisONG.Controllers
             return File(pdfBytes, "application/pdf", $"relatorio_{id}.pdf");
         }
 
+        [HttpGet("paginado")]
+        public async Task<IActionResult> GetTodos(int page = 1, int pageSize = 10)
+        {
+            var (itens, total) = await _relatorioService.GetPaginadosAsync(page, pageSize);
+
+            var result = new
+            {
+                Total = total,
+                PaginaAtual = page,
+                TotalPaginas = (int)Math.Ceiling((double)total / pageSize),
+                Itens = itens
+            };
+
+            return Ok(result);
+        }
     }
 }

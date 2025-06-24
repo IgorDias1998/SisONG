@@ -11,5 +11,6 @@ namespace SisONG.Services
 
         Task<RelatorioReadDto> UpdateAsync(int id, RelatorioUpdateDto updateDto);
         Task<bool> DeleteAsync(int id);
+        Task<(List<RelatorioReadDto> Itens, int Total)> GetPaginadosAsync(int page, int pageSize);
     }
 }

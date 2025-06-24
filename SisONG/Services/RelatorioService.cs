@@ -149,5 +149,21 @@ namespace SisONG.Services
                     return "Tipo de relatório não suportado.";
             }
         }
+
+        public async Task<(List<RelatorioReadDto> Itens, int Total)> GetPaginadosAsync(int page, int pageSize)
+        {
+            var total = await _context.Relatorios.CountAsync();
+
+            var relatorios = await _context.Relatorios
+                .OrderByDescending(r => r.DataGeracao)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var dtos = _mapper.Map<List<RelatorioReadDto>>(relatorios);
+
+            return (dtos, total);
+        }
+
     }
 }

@@ -9,5 +9,6 @@ namespace SisONG.Services
         Task<EventoReadDto> CreateAsync(EventoCreateDto dto);
         Task<bool> UpdateAsync(int id, EventoUpdateDto dto);
         Task<bool> DeleteAsync(int id);
+        Task<List<EventoComContagemDto>> GetEventosComContagemAsync();
     }
 }

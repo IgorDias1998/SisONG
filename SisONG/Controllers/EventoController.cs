@@ -32,6 +32,13 @@ namespace SisONG.Controllers
             return Ok(evento);
         }
 
+        [HttpGet("com-contagem")]
+        public async Task<ActionResult<IEnumerable<EventoComContagemDto>>> GetComContagem()
+        {
+            var eventos = await _service.GetEventosComContagemAsync();
+            return Ok(eventos);
+        }
+
         [HttpPost]
         public async Task<ActionResult<EventoReadDto>> Create(EventoCreateDto dto)
         {

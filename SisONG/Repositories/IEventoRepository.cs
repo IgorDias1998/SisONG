@@ -1,4 +1,5 @@
-﻿using SisONG.Models;
+﻿using SisONG.DTOs;
+using SisONG.Models;
 
 namespace SisONG.Repositories
 {
@@ -9,5 +10,6 @@ namespace SisONG.Repositories
         Task CreateAsync(Evento evento);
         Task UpdateAsync(Evento evento);
         Task DeleteAsync(Evento evento);
+        Task<List<EventoComContagemDto>> GetEventosComContagemAsync();
     }
 }

@@ -53,5 +53,10 @@ namespace SisONG.Services
             await _repository.DeleteAsync(evento);
             return true;
         }
+
+        public async Task<List<EventoComContagemDto>> GetEventosComContagemAsync()
+        {
+            return await _repository.GetEventosComContagemAsync();
+        }
     }
 }

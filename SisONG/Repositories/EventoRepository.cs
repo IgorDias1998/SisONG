@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SisONG.Data.Context;
+using SisONG.DTOs;
 using SisONG.Models;
 
 namespace SisONG.Repositories
@@ -43,6 +44,21 @@ namespace SisONG.Repositories
         {
             _context.Eventos.Remove(evento);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<EventoComContagemDto>> GetEventosComContagemAsync()
+        {
+            return await _context.Eventos
+                .Include(e => e.EventoVoluntarios)
+                .Select(e => new EventoComContagemDto
+                {
+                    Id = e.Id,
+                    Titulo = e.Titulo,
+                    DataHora = e.DataHora,
+                    Local = e.Local,
+                    QuantidadeVoluntarios = e.EventoVoluntarios.Count
+                })
+                .ToListAsync();
         }
     }
 }
